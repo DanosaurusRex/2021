@@ -48,7 +48,8 @@ def draw(points, printlog=True):
         output[y][x] = '#'
     
     if printlog:
-        print(*output, sep='\n')
+        for line in output:
+            print(''.join(line))
     return output
 
 def part2(points, instructions):
