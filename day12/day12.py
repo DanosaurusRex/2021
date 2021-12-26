@@ -12,18 +12,70 @@ def read_input(filename) -> dict:
     return data
 
 
+  
+
+
 def part1(data):
+    paths = [['start']]
 
-    valid_routes = []
+    while True:
+        new_paths = []
+        for path in paths.copy():
+            last = path[-1]
+            if last == 'end':
+                new_paths.append(path)
+                continue
+            for option in data[last]:
+                if option in path and option.islower():
+                    continue
+                new_path = path + [option]
+                new_paths.append(new_path)
+        if paths == new_paths:
+            break
+        paths = new_paths
 
-    route = []
-    current = "start"
-    options = [opt for opt in data[current] if opt not in route]
+    print(f'Part 1: {len(paths)}')
 
-    while options:
-        opt = options.pop()
+
+def part2(data):
+    doubles = [key for key in data if key.islower() and key not in ('start', 'end')]
+
+    print(doubles)
+    paths = []
+
+    for double in doubles:
+        print(double)
+        double_paths = [['start']]
+        while True:
+            new_paths = []
+            for path in double_paths.copy():
+                last = path[-1]
+                if last == 'end':
+                    new_paths.append(path)
+                    continue
+                for option in data[last]:
+                    if option.islower():
+                        if path.count(option) == 2:
+                            continue
+                        if option in path and option != double:
+                            continue
+                    new_path = path + [option]
+                    new_paths.append(new_path)
+            if double_paths == new_paths:
+                break
+            double_paths = new_paths
+
+        for path in double_paths:
+            if path not in paths:
+                paths.append(path)
+
+
+    print(*paths, sep='\n')
+
+    print(f'Part 2: {len(paths)}')
 
 
 if __name__ == "__main__":
     data = read_input("day12/input.txt")
-    print(*data.items(), sep="\n")
+    part1(data)
+    part2(data)
