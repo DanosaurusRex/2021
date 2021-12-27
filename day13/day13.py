@@ -42,7 +42,7 @@ def draw(points, printlog=True):
     x = max([x for x, y in points]) + 1
     y = max([y for x, y in points]) + 1
 
-    output = [['.'] * x for _ in range(y)]
+    output = [[' '] * x for _ in range(y)]
 
     for x, y in points:
         output[y][x] = '#'
@@ -65,8 +65,3 @@ if __name__ == '__main__':
     points, instructions = read_input('day13/input.txt')
     part1(points, instructions)
     part2(points, instructions)
-
-    output = draw(points, False)
-    with open('day13/output.txt', 'w') as f:
-        for line in output:
-            f.write(''.join(line))
