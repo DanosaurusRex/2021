@@ -11,19 +11,6 @@ def read_input(filename):
             rules[pair] = insert
     return template, rules
 
-def read_input2(filename):
-    template = ''
-    rules = {}
-    with open(filename) as f:
-        template = f.readline().strip()
-        for line in f.readlines():
-            line = line.strip()
-            if not line:
-                continue
-            pair, insert = line.split(' -> ')
-            rules[pair] = insert + pair[1]
-    return template, rules
-
 def count_chars(sequence):
     counts = {}
     for char in set(sequence):
@@ -51,13 +38,11 @@ def polymerise(template, rules, runs):
 
             first = pair[0] + inserted
             second = inserted + pair[1]
-            if first not in new_pairs:
-                new_pairs[first] = 0
-            if second not in new_pairs:
-                new_pairs[second] = 0
-            
-            new_pairs[first] += qty
-            new_pairs[second] += qty
+
+            for new_pair in (first, second):
+                if new_pair not in new_pairs:
+                    new_pairs[new_pair] = 0
+                new_pairs[new_pair] += qty
             new_pairs[pair] -= qty
             
             if inserted not in chars:
