@@ -28,7 +28,6 @@ def hex_to_bin(hex):
 def decode(packet):
     version = int(packet[0:3], 2)
     type_id = int(packet[3:6], 2)
-    values = []
 
     if type_id == 4:
         value = ""
@@ -38,6 +37,7 @@ def decode(packet):
                 value = int(value, 2)
                 return version, value, packet[i + 5 :]
     else:
+        values = []
         length_type = int(packet[6])
         if length_type == 0:
             length = int(packet[7:22], 2)
