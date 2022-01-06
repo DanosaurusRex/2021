@@ -68,7 +68,7 @@ def part2(target):
     tar_x = target[0]
     tar_y = target[1]
 
-    max_y = -tar_y[0] + 1
+    max_y = -tar_y[0] - 1
 
     for x in range(tar_x[1] + 1):
         furthest = max_distance(x)
